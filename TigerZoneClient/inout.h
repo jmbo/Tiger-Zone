@@ -14,10 +14,12 @@ public:
 
     bool tiger=false;   //placing tiger
     bool croc=false;    //placing croc
+    bool goat=false;    //placing goat
     bool forfeit = false;
     bool tournyOpen = false;   //lets output know to submit tourney passw
     bool signin = false;        //output should sign in
     bool makeMove = false;    //Since we're using Bools to track everything else
+    bool reportScore = false;
     bool noInput = false;
     bool tournyStart = false;
     bool challengeOpen = false;
@@ -36,8 +38,8 @@ public:
     Input();
     void takeInput(string message);   //takes in the server input
     int convertID(string tile);
-    int rounds;         //number of rounds per challenge    
-    
+    int rounds;         //number of rounds per challenge
+
 private:
     int challenges;     //number of challenges in tournament
     int timePlan;       //time to plan before game starts

@@ -12,7 +12,7 @@
 
 
 class Game {
-    
+
 private:
     Board * board;
     Deck * deck;
@@ -20,7 +20,8 @@ private:
     Player * player_two;
     bool current_turn;          // true if one's turn, false if two's turn
     bool isActive;              // is game over
-    
+    string gameID;
+
 public:
     Game(Card * card, int x, int y, int rotation);
     ~Game();
@@ -35,15 +36,18 @@ public:
     int getCurrCardID();
     void rotateCard();
     Player * getCurrPlayer();
+    Player * getPlayer(int num);
     bool getCurrTurn();
     int getScore( bool player );
     int getMeeples( bool player );
+    int getGoats( bool player );
     void printBoard();
     Card * getCurrCard();   // for GUI
     Deck * getDeck();
     void setStartingPlayer(bool us);
     int convertID(string ID);
-    
+    string getID() {return gameID;}
+
 };
 
 

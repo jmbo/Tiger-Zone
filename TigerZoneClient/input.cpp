@@ -120,7 +120,7 @@ void Input::takeInput(string message){
       int x = stoi(message.substr(start+3, end-(start+3)));//"AT <x> "
       start = message.find(" ", end);
       end = message.find(" ", start+1);
-     cout << "stoi3" << endl; 
+     cout << "stoi3" << endl;
       int y = stoi(message.substr(start, end-(start)));//"AT <y> "
       coord = make_pair(x, y);
       start = message.find(" ", end);
@@ -133,6 +133,9 @@ void Input::takeInput(string message){
       }
       else if(message.find("CROCODILE") != string::npos){
         croc = true;
+      }
+      else if(message.find("GOAT") != string::npos){
+        goat = true;
       }
       else{
         tiger = true;
@@ -216,7 +219,7 @@ void Input::takeInput(string message){
     if(message.find("END OF CHALLENGES") != -1 || message.find("NEXT CHALLENGE TO BEGIN") != -1)
     {
       challengeOpen = false;
-    }  
+    }
 
     if(message.find("MATCH BEGINS") != -1)
     {
@@ -228,7 +231,12 @@ void Input::takeInput(string message){
       gameOpen = false;
       moveCount = 0;
 
-    }   
+    }
+
+    if(message.find("SEND OUTCOME") != -1)
+    {
+      reportScore = true;
+    }
 
 
 
@@ -261,12 +269,13 @@ int Input::convertID(string ID)
     if(ID == "TLTJ-"){return 18;}
     if(ID == "TLTJD"){return 19;}
     if(ID == "TLLL-"){return 20;}
-    if(ID == "TLTT-"){return 21;}     
+    if(ID == "TLTT-"){return 21;}
     if(ID == "TLTTP"){return 22;}
     if(ID == "TLTT-"){return 23;}
     if(ID == "TLLTB"){return 24;}
     if(ID == "LJTJ-"){return 25;}
     if(ID == "LJTJD"){return 26;}
     if(ID == "TLLLC"){return 27;}
+    if(ID == "TLTL-"){return 28;}
     else return -1;
 }

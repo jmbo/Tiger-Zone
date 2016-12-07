@@ -17,26 +17,26 @@ Card::Card(int id) {
     assignCardID();
     connectEdgestoCard();
     assignCloseID();
-    
+
     orientation = 0;
 }
 void Card::rotate() {   // rotate card 90 degrees clockwise
-    
+
 //    Edge * temp;
 //    temp = rightEdge;
 //    rightEdge = botEdge;
 //    botEdge = leftEdge;
 //    leftEdge = topEdge;
 //    topEdge = temp;
-    
-    
+
+
     Edge * temp;
     temp = rightEdge;
     rightEdge = topEdge;
     topEdge = leftEdge;
     leftEdge = botEdge;
     botEdge = temp;
-    
+
     orientation = (orientation + 90) % 360;
     //printCard();
 }
@@ -50,7 +50,7 @@ void Card::printCard() {
 }
 
 void Card::assignCardID() {
-    
+
     cardID = "";
 
     if(topEdge->getType() == 'J') {
@@ -62,7 +62,7 @@ void Card::assignCardID() {
     else if(topEdge->getType() == 'T') {
         cardID += 'T';
     }
-    
+
     if(rightEdge->getType() == 'J') {
         cardID += 'J';
     }
@@ -72,7 +72,7 @@ void Card::assignCardID() {
     else if(rightEdge->getType() == 'T') {
         cardID += 'T';
     }
-    
+
     if(botEdge->getType() == 'J') {
         cardID += 'J';
     }
@@ -82,7 +82,7 @@ void Card::assignCardID() {
     else if(botEdge->getType() == 'T') {
         cardID += 'T';
     }
-    
+
     if(leftEdge->getType() == 'J') {
         cardID += 'J';
     }
@@ -92,7 +92,7 @@ void Card::assignCardID() {
     else if(leftEdge->getType() == 'T') {
         cardID += 'T';
     }
-    
+
     if(id == 1 || id == 2) {
          cardID += 'X';
     }
@@ -114,7 +114,7 @@ void Card::assignCardID() {
 }
 
 void Card::assignSides() {    // completable features: lakes (l), game-trails (t), jungle (j), & dens
-    
+
     // mark top of card depending on card id
     if(id == -1) {
         topEdge = new Edge();
@@ -129,12 +129,12 @@ void Card::assignSides() {    // completable features: lakes (l), game-trails (t
     else {                             // card with jungle top
         topEdge = new Edge('L');
     }
-    
+
     // mark right of card depending on card id
     if(id == -1) {
         rightEdge = new Edge();
     }
-    else if(id == 3) {          // card with city right
+    else if(id == 3 || id == 28) {          // card with city right
         rightEdge = new Edge('T');
     }
     else if (id == 0 || id == 1 || id == 2 || id == 4 || id == 5 || id == 6 || id == 12 || id == 25 || id == 26 || id == 11) {                          // card with road right
@@ -143,12 +143,12 @@ void Card::assignSides() {    // completable features: lakes (l), game-trails (t
     else {                                                                                      // card with field right
         rightEdge = new Edge('L');
     }
-    
+
     // mark bot of card depending on card id
     if(id == -1) {
         botEdge = new Edge();
     }
-    else if(id == 7 || id == 8 || id == 11 || id == 13 || id == 20 || id == 23 || id == 24 || id == 27 ) {                                                           // card with city bot
+    else if(id == 7 || id == 8 || id == 11 || id == 13 || id == 20 || id == 23 || id == 24 || id == 27 || id == 28) {                                                           // card with city bot
         botEdge = new Edge('L');
     }
     else if (id == 2 || id == 3 || id == 4 || id == 6 || id == 16 || id == 17 || id == 18 || id == 19 || id == 21 || id == 22 || id == 25 || id == 26) {                            // card with field bot
@@ -157,12 +157,12 @@ void Card::assignSides() {    // completable features: lakes (l), game-trails (t
     else {                                                                              // card with road bot
         botEdge = new Edge('J');
     }
-    
+
     // mark left of card depending on card id
     if(id == -1) {
         leftEdge = new Edge();
     }
-    else if(id == 3 || id == 5 || id == 6 || id == 14 || id == 15 || id == 16 || id == 17 || id == 21 || id == 22 || id == 23 || id == 24) {          // card with city left
+    else if(id == 3 || id == 5 || id == 6 || id == 14 || id == 15 || id == 16 || id == 17 || id == 21 || id == 22 || id == 23 || id == 24 || id == 28) {          // card with city left
         leftEdge = new Edge('T');
     }
     else if (id == 7 || id == 8 || id == 10 || id == 20 || id == 27) {    // card with road left
@@ -171,14 +171,14 @@ void Card::assignSides() {    // completable features: lakes (l), game-trails (t
     else {                                                                              // card with field left
         leftEdge = new Edge('J');
     }
-    
-    
+
+
     // mark MID of card depending on card id
     if(id == 7 || id == 8 || id == 10 || id == 20) {                        // card with lake top
         mid = 'L';
     }
     else if (id == 3 || id == 4 || id == 5 || id == 6 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19
-             || id == 21 || id == 22 || id == 25 || id == 26 || id == 23 || id == 24) {     // card with trail top13
+             || id == 21 || id == 22 || id == 25 || id == 26 || id == 23 || id == 24 || id == 28) {     // card with trail top13
         mid = 'T';
     }
     else if (id == 0 || id == 10 || id == 11 || id == 12 || id == 13) {     // card with trail top13
@@ -187,8 +187,8 @@ void Card::assignSides() {    // completable features: lakes (l), game-trails (t
     else {                             // card with jungle top
         mid = 'o';
     }
-    
-    
+
+
 }
 
 
@@ -226,12 +226,12 @@ char Card::getMid(){
 
 void Card::connectEdgestoCard() {
     //======== add jungle/lake/trail region to this card
-    
+
     // add jungle region to this card
-    if( id == 0 || id == 1 || id == 2 || id == 3 || id == 4 || id == 5 || id == 6 || id == 8 || id == 9 || id == 10 || id == 11 || id == 12 || id == 13 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22 || id == 23 || id == 24 || id == 25 || id == 26 || id == 27) {
+    if( id == 0 || id == 1 || id == 2 || id == 3 || id == 4 || id == 5 || id == 6 || id == 8 || id == 9 || id == 10 || id == 11 || id == 12 || id == 13 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22 || id == 23 || id == 24 || id == 25 || id == 26 || id == 27 || id == 28) {
         j1 = new Jungle();
     }
-    if(id == 3 || id == 4 || id == 5 || id == 6 || id == 10 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22 || id == 23 || id == 24 || id == 25 || id == 26 || id == 27) {
+    if(id == 3 || id == 4 || id == 5 || id == 6 || id == 10 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22 || id == 23 || id == 24 || id == 25 || id == 26 || id == 27 || id == 28) {
         j2 = new Jungle();
     }
     if(id == 3 || id == 6 || id == 21 || id == 22) {
@@ -241,14 +241,14 @@ void Card::connectEdgestoCard() {
         j4 = new Jungle();
     }
     // add lake region to this card
-    if(id == 7 || id == 8 || id == 9 || id == 10 || id == 11 || id == 12 || id == 13 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22 || id == 23 || id == 24 || id == 25 || id == 26 || id == 27) {
+    if(id == 7 || id == 8 || id == 9 || id == 10 || id == 11 || id == 12 || id == 13 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22 || id == 23 || id == 24 || id == 25 || id == 26 || id == 27 || id == 28) {
         l1 = new Lake();
     }
-    if(id == 11 || id == 13) {
+    if(id == 11 || id == 13 || id == 28) {
         l2 = new Lake();
     }
     // add trail region to this card
-    if(id == 2 || id == 3 || id == 4 || id == 5 || id == 6 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22 || id == 23 || id == 24 || id == 25 || id == 26 || id == 27) {
+    if(id == 2 || id == 3 || id == 4 || id == 5 || id == 6 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 20 || id == 21 || id == 22 || id == 23 || id == 24 || id == 25 || id == 26 || id == 27 || id == 28) {
         t1 = new Trail();
     }
     if(id == 3 || id == 6 || id == 21 || id == 22) {
@@ -260,30 +260,30 @@ void Card::connectEdgestoCard() {
     if(id == 3) {
         t4 = new Trail();
     }
-    
+
     // connect edges to card's jungle/lake/trail region(s)
     // depending on the card, edges connect to different regions
-    
+
     // 'J' edge has one Jungle pointer
-    
+
     // 'L' edge has one Lake pointer
-    
+
     // 'T' edge has one Trail and two Jungle pointers
     //------------------------------------------------------------------
-    
+
     // connect top edge to card's internal regions
-    
+
     reConnect();
 }
 
 void Card::reConnect() {
-    
+
     Edge * curr_topEdge = new Edge();   // where the default edges are located
     Edge * curr_rightEdge = new Edge();
     Edge * curr_botEdge = new Edge();
     Edge * curr_leftEdge = new Edge();
 
-    
+
     if(orientation == 0) {
         curr_topEdge   = topEdge;
         curr_rightEdge = rightEdge;
@@ -308,7 +308,7 @@ void Card::reConnect() {
         curr_botEdge   = rightEdge;
         curr_leftEdge  = botEdge;
     }
-    
+
     // connect top edge to card's internal regions
     if(id == 0) {
         curr_topEdge->j1 = j1;
@@ -331,46 +331,46 @@ void Card::reConnect() {
         curr_leftEdge->j1 = j1;
     }
     else if(id == 3) {
-        
+
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t4;
         curr_topEdge->j2 = j3;
-        
+
         curr_rightEdge->j1 = j3;
         curr_rightEdge->t1 = t3;
         curr_rightEdge->j2 = j4;
-        
+
         curr_botEdge->j1 = j4;
         curr_botEdge->t1 = t2;
         curr_botEdge->j2 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
-        
+
     }
     else if(id == 4) {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t1;
         curr_topEdge->j2 = j2;
-        
+
         curr_rightEdge->j1 = j2;
-        
+
         curr_botEdge->j1 = j2;
         curr_botEdge->t1 = t1;
         curr_botEdge->j2 = j1;
-        
+
         curr_leftEdge->j1 = j1;
     }
     else if(id == 5) {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t1;
         curr_topEdge->j2 = j2;
-        
+
         curr_rightEdge->j1 = j2;
-        
+
         curr_botEdge->j1 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
@@ -379,13 +379,13 @@ void Card::reConnect() {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t3;
         curr_topEdge->j2 = j3;
-        
+
         curr_rightEdge->j1 = j3;
-        
+
         curr_botEdge->j1 = j3;
         curr_botEdge->t1 = t2;
         curr_botEdge->j2 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
@@ -436,11 +436,11 @@ void Card::reConnect() {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t1;
         curr_topEdge->j2 = j2;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->j1 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
@@ -449,37 +449,37 @@ void Card::reConnect() {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t1;
         curr_topEdge->j2 = j2;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->j1 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
     }
     else if(id == 16) {
         curr_topEdge->j1 = j1;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->j1 = j1;
         curr_botEdge->t1 = t1;
         curr_botEdge->j2 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
     }
     else if(id == 17) {
         curr_topEdge->j1 = j1;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->j1 = j1;
         curr_botEdge->t1 = t1;
         curr_botEdge->j2 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
@@ -488,26 +488,26 @@ void Card::reConnect() {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t1;
         curr_topEdge->j2 = j2;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->j1 = j2;
         curr_botEdge->t1 = t1;
         curr_botEdge->j2 = j1;
-        
+
         curr_leftEdge->j1 = j1;
     }
     else if(id == 19) {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t1;
         curr_topEdge->j2 = j2;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->j1 = j2;
         curr_botEdge->t1 = t1;
         curr_botEdge->j2 = j1;
-        
+
         curr_leftEdge->j1 = j1;
     }
     else if(id == 20) {
@@ -517,19 +517,19 @@ void Card::reConnect() {
         curr_rightEdge->l1 = l1;
         curr_botEdge->l1 = l1;
         curr_leftEdge->l1 = l1;
-        
+
     }
     else if(id == 21) {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t3;
         curr_topEdge->j2 = j3;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->j1 = j3;
         curr_botEdge->t1 = t2;
         curr_botEdge->j2 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
@@ -538,13 +538,13 @@ void Card::reConnect() {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t3;
         curr_topEdge->j2 = j3;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->j1 = j3;
         curr_botEdge->t1 = t2;
         curr_botEdge->j2 = j2;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
@@ -553,11 +553,11 @@ void Card::reConnect() {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t1;
         curr_topEdge->j2 = j2;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->l1 = l1;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
@@ -566,11 +566,11 @@ void Card::reConnect() {
         curr_topEdge->j1 = j1;
         curr_topEdge->t1 = t1;
         curr_topEdge->j2 = j2;
-        
+
         curr_rightEdge->l1 = l1;
-        
+
         curr_botEdge->l1 = l1;
-        
+
         curr_leftEdge->j1 = j2;
         curr_leftEdge->t1 = t1;
         curr_leftEdge->j2 = j1;
@@ -599,15 +599,28 @@ void Card::reConnect() {
         curr_botEdge->l1 = l1;
         curr_leftEdge->l1 = l1;
     }
-    
+    else if (id == 28) {
+      curr_topEdge->l1 = l1;
+
+      curr_leftEdge->j1 = j1;
+      curr_leftEdge->t1 = t1;
+      curr_leftEdge->j2 = j2;
+
+      curr_rightEdge->j1 = j2;
+      curr_rightEdge->t1 = t1;
+      curr_rightEdge->j2 = j1;
+
+      curr_botEdge->l1 = l2;
+    }
+
 }
 
 
 void Card::assignCloseID() {
-    
+
      // 0 if extending trail, 1 if extending lake, 2 if closing trail, 3 if closing lake, -1 non of the above
-    
-    if( id == 4 || id == 5 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 23 || id == 24 ) {              // extending trail
+
+    if( id == 4 || id == 5 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 23 || id == 24 || id == 28) {              // extending trail
         extendID = 0;
     }
     else if( id == 2 || id == 3 || id == 6 || id == 20 || id == 21 || id == 22 || id == 25 || id == 26 || id == 27  ) {        // closing trail
@@ -616,19 +629,19 @@ void Card::assignCloseID() {
     else if( id == 7 || id == 8 || id == 9 || id == 10 || id == 20 || id == 23 || id == 24 || id == 27  ) {        // extending lake
         extendID = 1;
     }
-    else if( id == 11 || id == 12 || id == 13 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 21 || id == 22 || id == 25 || id == 26  ) {        // closing lake
+    else if( id == 11 || id == 12 || id == 13 || id == 14 || id == 15 || id == 16 || id == 17 || id == 18 || id == 19 || id == 21 || id == 22 || id == 25 || id == 26 || id == 28 ) {        // closing lake
         extendID = 3;
     }
     else {
         extendID = -1;
     }
-    
-    
+
+
 }
 
 // print valid meeple locations on the current card
 void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J4, int & T1, int & T2, int & T3, int & T4) {
-    
+
     // top edge
     if( topEdge->getType() == 'J' ) {
         if(topEdge->j1 == j1) {
@@ -645,7 +658,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         }
     }
     if( topEdge->getType() == 'L' ) {
-        
+
         if( leftEdge->getType() != 'L' && rightEdge->getType() != 'L' ) { // left and right edge not lake
             if(topEdge->l1 == l1) {
                 setValue( L1 , 2);
@@ -670,7 +683,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
                 setValue( L2 , 1);
             }
         }
-        
+
     }
     if( topEdge->getType() == 'T' ) {
         if(topEdge->j1 == j1) {
@@ -685,7 +698,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         if(topEdge->j1 == j4) {
             setValue( J4 , 1);
         }
-        
+
         if(topEdge->t1 == t1) {
             setValue( T1 , 2);
         }
@@ -711,7 +724,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
             setValue( J4 , 3);
         }
     }
-    
+
     // left edge
     if( leftEdge->getType() == 'J' ) {
         if(leftEdge->j1 == j1) {
@@ -728,7 +741,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         }
     }
     if( leftEdge->getType() == 'L' ) {
-        
+
         if( topEdge->getType() != 'L' && botEdge->getType() != 'L' ) { // top and bot edge not lake
             if(leftEdge->l1 == l1) {
                 setValue( L1 , 4);
@@ -753,9 +766,9 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
                 setValue( L2 , 1);
             }
         }
-        
-        
-        
+
+
+
     }
     if( leftEdge->getType() == 'T' ) {
         if(leftEdge->j2 == j1) {
@@ -770,7 +783,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         if(leftEdge->j2 == j4) {
             setValue( J4 , 1);
         }
-        
+
         if(leftEdge->t1 == t1) {
             setValue( T1 , 4);
         }
@@ -783,7 +796,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         if(leftEdge->t1 == t4) {
             setValue( T4 , 4);
         }
-        
+
         if(leftEdge->j1 == j1) {
             setValue( J1, 7 );
         }
@@ -797,7 +810,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
             setValue( J4, 7 );
         }
     }
-    
+
     // right edge
     if( rightEdge->getType() == 'J' ) {
         if(rightEdge->j1 == j1) {
@@ -814,7 +827,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         }
     }
     if( rightEdge->getType() == 'L' ) {
-        
+
         if( topEdge->getType() != 'L' && botEdge->getType() != 'L' ) { // top and bot edge not lake
             if(rightEdge->l1 == l1) {
                 setValue( L1 , 6);
@@ -839,7 +852,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
                 setValue( L2 , 3);
             }
         }
-        
+
     }
     if( rightEdge->getType() == 'T' ) {
         if(rightEdge->j2 == j1) {
@@ -854,7 +867,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         if(rightEdge->j2 == j4) {
             setValue( J4, 9 );
         }
-        
+
         if(rightEdge->t1 == t1) {
             setValue( T1, 6 );
         }
@@ -867,7 +880,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         if(rightEdge->t1 == t4) {
             setValue( T4, 6 );
         }
-        
+
         if(rightEdge->j1 == j1) {
             setValue( J1, 3 );
         }
@@ -881,7 +894,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
             setValue( J4, 3 );
         }
     }
-    
+
     // bot edge
     if( botEdge->getType() == 'J' ) {
         if(botEdge->j1 == j1) {
@@ -898,7 +911,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         }
     }
     if( botEdge->getType() == 'L' ) {
-        
+
         if( leftEdge->getType() != 'L' && rightEdge->getType() != 'L' ) { // left and right edge not lake
             if(botEdge->l1 == l1) {
                 setValue( L1 , 8);
@@ -923,7 +936,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
                 setValue( L2 , 7);
             }
         }
-        
+
     }
     if( botEdge->getType() == 'T' ) {
         if(botEdge->j2 == j1) {
@@ -938,7 +951,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         if(botEdge->j2 == j4) {
             setValue( J4, 7 );
         }
-        
+
         if(botEdge->t1 == t1) {
             setValue( T1, 8 );
         }
@@ -951,7 +964,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         if(botEdge->t1 == t4) {
             setValue( T4, 8 );
         }
-        
+
         if(botEdge->j1 == j1) {
             setValue( J1, 9 );
         }
@@ -964,11 +977,11 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         if(botEdge->j1 == j4) {
             setValue( J4, 9 );
         }
-        
-        
-        
+
+
+
     }
-    
+
     if(      j1 != NULL && j1->getOwner() != -1 ) {
         J1 = 10;
     }
@@ -981,7 +994,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
     else if( j4 != NULL && j4->getOwner() != -1 ) {
         J4 = 10;
     }
-    
+
     if(      t1 != NULL && t1->getOwner() != -1 ) {
         T1 = 10;
     }
@@ -994,7 +1007,7 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
     else if( t4 != NULL && t4->getOwner() != -1 ) {
         T4 = 10;
     }
-    
+
     if(      l1 != NULL && l1->getOwner() != -1 ) {
         L1 = 10;
     }
@@ -1021,17 +1034,17 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
         hardSet( L1, 4 );
         hardSet( L2, 8 );
     }
-    
+
     if( (id == 5 || id == 14 || id == 15 || id == 23 || id == 24) && orientation == 180) {
         setValue( T1, 5 );
     }
     if( (id == 16 || id == 17) && orientation == 90) {
         setValue( T1, 5 );
     }
-    
+
     /* when specifying where a tiger is to be placed on a tile, specify the smallest
        zone number that describes the feature into which it is being added.       */
-    
+
     //cout << "Card " << getCardID() << " with orientation " << getOrient() << endl;
     if(L1 != 10) {
         cout << "L1 in zone: " << L1 << endl;
@@ -1063,8 +1076,8 @@ void Card::assignZones(int & L1, int & L2, int & J1, int & J2, int & J3, int & J
     if(T4 != 10) {
         cout << "T4 in zone: " << T4 << endl;
     }
-    
-    
+
+
 }
 
 void Card::setValue( int & oldVal, int newVal  ) {
@@ -1076,4 +1089,3 @@ void Card::setValue( int & oldVal, int newVal  ) {
 void Card::hardSet(  int & oldVal, int newVal  ) {
      oldVal = newVal;
 }
-

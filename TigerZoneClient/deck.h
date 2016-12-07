@@ -7,12 +7,12 @@
 #include <stack>
 #include "card.h"
 
-#define UNIQUECARDS 28              // number of unique cards in the deck
-#define MAXCARDS    77      // cards randomly put in deck, doesn't include center card
+#define UNIQUECARDS 29              // number of unique cards in the deck
+#define MAXCARDS    79      // cards randomly put in deck, doesn't include center card
 using namespace std;
 
 class Deck {
-    
+
 public:
     Deck();                         // Deck constructor
     ~Deck();
@@ -21,12 +21,12 @@ public:
     void printDeck();               // for debugging:print count of each card currently in the deck
     int getSize();
     bool isEmpty();                 // return # of cards in the deck (??? Kurt - do you want int?)
-    
+
 private:
     int numCardsInDeck;             // total nubmer of cards currently in the deck
     int counts[UNIQUECARDS];        // count of each card currently in the deck
     stack<Card*> deck;              // stack of card ids
-    
+
 };
 
 #endif /* deck_h */

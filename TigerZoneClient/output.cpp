@@ -16,7 +16,7 @@ void Output::choosePlacement(int choice)
     string ret = "";
     switch(choice)
     {
-        case 1 : 
+        case 1 :
             ret = "GAME ";
             ret.append(in.gid);
             ret.append(" MOVE ");
@@ -28,7 +28,7 @@ void Output::choosePlacement(int choice)
             ret.append(" ");
             ret.append(to_string(coord.second));
             ret.append(" ");
-            ret.append(to_string(orientation)); 
+            ret.append(to_string(orientation));
             ret.append(" NONE");
 
         case 2 :
@@ -43,7 +43,7 @@ void Output::choosePlacement(int choice)
             ret.append(" ");
             ret.append(to_string(coord.second));
             ret.append(" ");
-            ret.append(to_string(orientation)); 
+            ret.append(to_string(orientation));
             ret.append(" CROCODILE");
 
         case 3 :
@@ -58,7 +58,7 @@ void Output::choosePlacement(int choice)
             ret.append(" ");
             ret.append(to_string(coord.second));
             ret.append(" ");
-            ret.append(to_string(orientation)); 
+            ret.append(to_string(orientation));
             ret.append(" TIGER ");
             ret.append(to_string(zone));
 
@@ -70,7 +70,7 @@ void Output::choosePlacement(int choice)
             ret.append(" TILE ");
             ret.append(in.tile);
             ret.append(" UNPLACEABLE PASS");
-       
+
         case 5 :
             ret = "GAME ";
             ret.append(in.gid);
@@ -94,6 +94,21 @@ void Output::choosePlacement(int choice)
             ret.append(to_string(coord.first));
             ret.append(" ");
             ret.append(to_string(coord.second));
+
+        case 7 :
+            ret = "GAME ";
+            ret.append(in.gid);
+            ret.append(" MOVE ");
+            ret.append(to_string(in.moveCount));
+            ret.append(" PLACE ");
+            ret.append(in.tile);
+            ret.append(" AT ");
+            ret.append(to_string(coord.first));
+            ret.append(" ");
+            ret.append(to_string(coord.second));
+            ret.append(" ");
+            ret.append(to_string(orientation));
+            ret.append(" GOAT ");
     }
 }
 
@@ -115,7 +130,7 @@ void Output::outputFunc(int x, int y, int orient, string game, string tile){
     {
         ret.append(" PLACE ");
     }
-    
+
     ret.append(tile);
     ret.append(" AT ");
     ret.append(to_string(coord.first));
@@ -124,11 +139,12 @@ void Output::outputFunc(int x, int y, int orient, string game, string tile){
     ret.append(" ");
     ret.append(to_string(orientation));
 
-    if(zone > 0 ){ 
+    if(zone > 0 ){
       ret.append(" TIGER "); ret.append(to_string(zone));
     }
-    else { 
+    else {
       ret.append(" NONE");
     }
+    //change logic here somehow to place a goat
     outMessage = ret;
 }

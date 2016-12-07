@@ -9,11 +9,11 @@ using namespace std;
 Game::Game(Card * card, int x, int y, int rotation) {
     isActive = OFF;
     deck = new Deck();
-    
+
     Card * centerCard = deck->drawCard();
-    
+
     // replace with card passed through Game() constructor
-    
+
     board = new Board( centerCard, x, y, rotation );       // the board
     player_one = new Player( board, deck, 1 );      // player 1 knows the board and deck
     player_two = new Player( board, deck, 2 );      // player 2 knows the board and deck
@@ -21,7 +21,7 @@ Game::Game(Card * card, int x, int y, int rotation) {
 }
 
 Game::~Game() {
-    
+
     delete board;
     delete player_one;
     delete player_two;
@@ -42,7 +42,7 @@ void Game::endGame() {
 }
 
 void Game::giveCard(string ID, Input *in) {
-    
+
     if( current_turn && player_one->hasCard == false && player_two->hasCard == false) {             // player one makes a move
         //cout << "player_one to draw card:" << endl;
         player_one->takeCard(ID, in);
@@ -51,13 +51,13 @@ void Game::giveCard(string ID, Input *in) {
         //cout << "player_two to draw card:" << endl;
         player_two->takeCard(ID, in);          // player two makes a move
     }
-    
+
 }
 
 
 
 void Game::giveTurn(int x, int y) {
-   /* 
+   /*
     if( deck->isEmpty() ) {    // if final card was played
         endGame();
         cout << "DECK EMPTY -> GAME OVER!";
@@ -68,7 +68,7 @@ void Game::giveTurn(int x, int y) {
             current_turn = !current_turn;        // toggle turn
         else{}
             //cout << "Cannot place card " << getCurrCardID() << " at (" << i << ',' << j << ']' << endl;
-        
+
     }
     else if ( !current_turn && player_two->hasCard == true ) {
         if (player_two->takeTurn(x, y))
@@ -109,6 +109,16 @@ Player * Game::getCurrPlayer() {
     }
 }
 
+Player * Game::getPlayer(int num)
+{
+  if (num == 1) {
+    return player_one;
+  }
+  else {
+    return player_two;
+  }
+}
+
 bool Game::getCurrTurn() {
     return current_turn;
 }
@@ -128,6 +138,14 @@ int Game::getMeeples( bool player ) {
     }
     else {
         return player_two->getMeeples();
+    }
+}
+int Game::getGoats( bool player ) {
+    if(player) {
+        return player_one->getGoats();
+    }
+    else {
+        return player_two->getGoats();
     }
 }
 
@@ -181,17 +199,13 @@ int Game::convertID(string ID)
     if(ID == "TLTJ-"){return 18;}
     if(ID == "TLTJD"){return 19;}
     if(ID == "TLLL-"){return 20;}
-    if(ID == "TLTT-"){return 21;}     
+    if(ID == "TLTT-"){return 21;}
     if(ID == "TLTTP"){return 22;}
     if(ID == "TLTT-"){return 23;}
     if(ID == "TLLTB"){return 24;}
     if(ID == "LJTJ-"){return 25;}
     if(ID == "LJTJD"){return 26;}
     if(ID == "TLLLC"){return 27;}
+    if(ID == "LTLT-"){return 28;}
     else return -1;
 }
-
-
-
-
-

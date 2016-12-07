@@ -9,13 +9,14 @@ Player::Player(Board * b, Deck * d, int pid) {
     theDeck = d;            // point this players to the game's deck
     score = 0;
     meeplesAvailable = 7;   // players start with 7 meeples
+    goatsAvailable = 3;
     currCard = NULL;
     hasCard = false;
     playerID = pid;
 }
 
 void Player::takeCard(string strID, Input *in) {
-    
+
     currCard = new Card(convertID(strID));                  // draw new card id from the deck
     theBoard->updatePossibleMoves( currCard );
 
@@ -24,7 +25,7 @@ void Player::takeCard(string strID, Input *in) {
             if(theBoard->checkPossibleMove(i, j) == true) {
                 in->coord = make_pair(i, j);
                 in->orientation = theBoard->getOrient(i, j);
-                
+
                 cout << " i = " << i << endl;
                 cout << " j = " << j << endl;
                 i = ROWS;
@@ -41,7 +42,7 @@ void Player::takeCard(string strID, Input *in) {
         theBoard->updatePossibleMoves( currCard );
         // TELL SERVER CARD IS DISCARDED, NEW CARD IS DRAWN.
     }*/
-    
+
     hasCard = true;
     //theBoard->printBoard();
  //   currCard->printCard();
@@ -75,6 +76,9 @@ int Player::getScore() {
 int Player::getMeeples() {
     return meeplesAvailable;
 }
+int Player::getGoats() {
+    return goatsAvailable;
+}
 
 // for gui
 Card * Player::getCard() {
@@ -104,13 +108,14 @@ int Player::convertID(string ID)
     if(ID == "TLTJ-"){return 18;}
     if(ID == "TLTJD"){return 19;}
     if(ID == "TLLL-"){return 20;}
-    if(ID == "TLTT-"){return 21;}     
+    if(ID == "TLTT-"){return 21;}
     if(ID == "TLTTP"){return 22;}
     if(ID == "TLTT-"){return 23;}
     if(ID == "TLLTB"){return 24;}
     if(ID == "LJTJ-"){return 25;}
     if(ID == "LJTJD"){return 26;}
     if(ID == "TLLLC"){return 27;}
+    if(ID == "LTLT-"){return 28;}
     else
         return -1;
 }

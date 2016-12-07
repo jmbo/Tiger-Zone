@@ -9,7 +9,7 @@
 
 
 class Player {
-    
+
 public:
     Player(Board * b, Deck * d, int playerID);
 
@@ -18,7 +18,7 @@ public:
    // void takeCard(string strID, Output *out);
     void takeCard(string strID, Input *in);
 
-    
+
     bool takeTurn(int i, int j);        // draw tile from the deck, place it, maybe place a meeple
     void drawCard();
     void rotateCard();
@@ -26,13 +26,14 @@ public:
     int getCardId();    // for GUI
     int getScore();
     int getMeeples();
+    int getGoats();
     Card * getCard();   // for GUI
-    
+
     int playerID;       // which player is this: player id
-    
+
 private:
     int score;
-    int meeplesAvailable;
+    int meeplesAvailable, goatsAvailable;
     Board * theBoard;
     Deck * theDeck;
     Card * currCard;
@@ -42,4 +43,4 @@ private:
 
 
 
-#endif 
+#endif
